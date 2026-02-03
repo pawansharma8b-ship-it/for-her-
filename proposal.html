@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Mitthu ❤️</title>
+    <style>
+        :root {
+            --primary-pink: #ff4d6d;
+            --soft-white: rgba(255, 255, 255, 0.85);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #000;
+            color: #333;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Slideshow Background */
+        .background-slideshow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .bg-img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .bg-img.active {
+            opacity: 0.6;
+        }
+
+        /* Content Card */
+        .container {
+            background: var(--soft-white);
+            padding: 2.5rem;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            border: 2px solid var(--primary-pink);
+            position: relative;
+        }
+
+        h1 { color: var(--primary-pink); margin-bottom: 0.5rem; }
+        p { font-size: 1.1rem; line-height: 1.6; }
+
+        .gif-container img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 15px;
+            margin: 15px 0;
+        }
+
+        /* Buttons */
+        .btn-group {
+            margin-top: 30px;
+            height: 60px;
+            position: relative;
+        }
+
+        button {
+            padding: 12px 35px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #yesBtn {
+            background-color: #2ecc71;
+            color: white;
+            margin-right: 20px;
+        }
+
+        #noBtn {
+            background-color: var(--primary-pink);
+            color: white;
+            position: absolute;
+        }
+
+        /* Success Message */
+        #successMessage {
+            display: none;
+            color: var(--primary-pink);
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-slideshow">
+        <img src="1.jpg" class="bg-img active">
+        <img src="2.jpg" class="bg-img">
+        <img src="3.jpg" class="bg-img">
+        <img src="4.jpg" class="bg-img">
+        <img src="6.jpg" class="bg-img">
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container">
+        <h1>Hi Avika (Mitthu) ❤️</h1>
+        <p>Since we first talked on <b>14th March</b>, my life has been a beautiful journey with you.</p>
+        
+        <div class="gif-container">
+            <img src="QYBB8796.gif" alt="Our Moments">
+        </div>
+
+        <h3>Will you be my Valentine?</h3>
+
+        <div class="btn-group">
+            <button id="yesBtn" onclick="celebrate()">YES</button>
+            <button id="noBtn" onmouseover="moveNoButton()">NO</button>
+        </div>
+
+        <div id="successMessage">
+            Yay! I love you, Mitthu! ❤️<br>— Yours, Abhi
+        </div>
+    </div>
+
+    <script>
+        // Start music on first click
+        document.body.addEventListener('click', () => {
+            document.getElementById('bgMusic').play();
+        }, { once: true });
+
+        // Slideshow Logic
+        let currentImg = 0;
+        const imgs = document.querySelectorAll('.bg-img');
+        setInterval(() => {
+            imgs[currentImg].classList.remove('active');
+            currentImg = (currentImg + 1) % imgs.length;
+            imgs[currentImg].classList.add('active');
+        }, 4000);
+
+        // Runaway "No" Button Logic
+        function moveNoButton() {
+            const btn = document.getElementById('noBtn');
+            const container = document.querySelector('.container');
+            
+            // Randomly move within the container bounds
+            const x = Math.random() * (container.clientWidth - btn.clientWidth);
+            const y = Math.random() * (container.clientHeight - btn.clientHeight);
+
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+        }
+
+        // "Yes" Click Logic
+        function celebrate() {
+            document.getElementById('yesBtn').style.display = 'none';
+            document.getElementById('noBtn').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+            
+            // Optional: Alert or additional effects
+            alert("She said YES! Happy Valentine's Day, Mitthu!");
+        }
+    </script>
+</body>
+</html>
